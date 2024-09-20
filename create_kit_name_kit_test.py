@@ -44,7 +44,8 @@ def positive_assert(kit_body_name):
     kit_response = sender_stand_request.post_new_kit(kit_body, kit_headers)
 
     assert kit_response.status_code == 201
-    assert kit_response.json()["name"] == kit_body["name"]
+    assert kit_response.json()["name"] == kit_body_name
+
 
 
 def negative_assert_code_400(kit_body_name):
@@ -61,6 +62,7 @@ def negative_assert_code_400(kit_body_name):
 
     assert kit_response.status_code == 400
     assert kit_response.json()["code"] == 400
+    assert kit_response.json()["name"] == kit_body_name
 
 def negative_assert_code_400_no_name(kit_body):
     # obtiene el token del nuevo usuario creado
@@ -74,6 +76,7 @@ def negative_assert_code_400_no_name(kit_body):
 
     assert kit_response.status_code == 400
     assert kit_response.json()["code"] == 400
+    assert kit_response.json() == {}
 
 # Prueba 1 Kit Creado con exito. Parametro name contiene 1 caracter
 def test_create_kit_1_letter_in_name_get_success_response():
